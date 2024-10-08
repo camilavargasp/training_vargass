@@ -1,0 +1,35 @@
+---
+title: "Intro to Quarto"
+author: "Camila Vargas Poulsen"
+format: html
+---
+
+# Level 1 header
+
+This is plain text
+
+## Level 2 header
+
+* bullet list 1
+* bullet list 2
+        * indent list 
+        
+        
+1. Numbered list
+2. number list
+
+I can make _itlaics_. And **Bold**. And ***both***.
+
+
+```{r}
+x <- 4*8
+
+hight_ft <- c(5.2,6, 5.7)
+
+coef <- 3.14
+
+```
+
+
+
+

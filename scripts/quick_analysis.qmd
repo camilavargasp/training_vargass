@@ -1,0 +1,79 @@
+---
+title: "Quick Analysis"
+format: html
+---
+
+
+# Introduction
+Data was downloaded from the Arctic Data Center on 10/7/24.
+Link to data [here](https://arcticdata.io/catalog/view/doi:10.18739/A25T3FZ8X)
+
+## Set up
+Attach necessary packages
+```{r}
+library(readr)
+library(here)
+```
+
+## Read data
+```{r}
+#| message: false
+#| warning: false
+
+bg_chem <- read_csv(here("data", "BGchem2008data.csv"))
+```
+
+
+# Analysis
+## Calculate summary statistics
+```{r explore data}
+#| eval: false
+#| echo: false
+
+### print the column name
+colnames(bg_chem)
+
+str(bg_chem)
+
+## First 6 lines
+head(bg_chem)
+
+## summary stat of all columns
+summary(bg_chem)
+
+## uniqu values of a column
+unique(bg_chem$Date)
+
+```
+
+Calculate the summary statistics for nitrate, ammonia and phosphorate.
+
+```{r}
+nitrate <- mean(bg_chem$NO3)
+nitrite <- mean(bg_chem$NO2)
+amm <- mean(bg_chem$NH4)
+phos <- mean(bg_chem$P)
+
+```
+
+
+## Calculate mean Redfield ratio
+This ratio is the relative proportion of nitrogen to phosphorus.
+
+```{r}
+ratio <- (nitrate + nitrite + amm)/phos
+```
+
+The Redfield ratio for these samples is approximately `r round(ratio)`
+
+## Plot Ratio
+
+```{r}
+#| echo: false
+
+plot(bg_chem$P, bg_chem$NO2 + bg_chem$NO3 + bg_chem$NH4)
+```
+
+
+# Conclusion
+
