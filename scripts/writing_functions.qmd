@@ -1,0 +1,42 @@
+---
+title: "Creating Functions in R"
+format:
+    html: 
+      toc: true
+      code-fold: true
+      embed-resources: true
+---
+
+## Set up
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+
+## Temperature conventions
+```{r}
+airtemps <- c(212, 30.3, 78, 32)
+
+celsius1 <- (airtemps[1] - 32) * 5/9
+celsius2 <- (airtemps[2] - 32) * 5/9
+
+```
+
+
+Create functions!
+
+```{r}
+convert_f_to_c <- function(fahr) {
+  
+  celsius <- (fahr - 32) * 5 / 9
+  
+  return(celsius)
+  
+}
+
+celsius1a <- convert_f_to_c(airtemps[1])
+
+```
+
