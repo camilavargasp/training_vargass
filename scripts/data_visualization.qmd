@@ -160,11 +160,56 @@ ggplot(data = daily_visits_total,
 ```{r}
 library(here)
 
-ggsave(here::here("plots/visits_restore_sire_delta.jpg"), width = 12, height = 6, units = "in")
+# ggsave(here::here("plots/visits_restore_sire_delta.jpg"), width = 12, height = 6, units = "in")
 ```
 
 
 
+## Interactive tables with DT
+```{r}
+locations <- visits_long %>% 
+  distinct(restore_loc, .keep_all = TRUE) %>% 
+  select(restore_loc, latitude, longitude)
+```
 
+
+```{r}
+datatable(locations)
+```
+
+
+## INteractive map with leaflet
+```{r}
+leaflet(locations) %>% 
+  addTiles() %>% 
+  addMarkers(
+    lng = ~longitude,
+    lat = ~latitude,
+    popup = ~restore_loc
+  )
+```
+
+
+Custome Leaflet map
+```{r}
+leaflet(locations) %>%
+    addWMSTiles(
+        "https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WmsServer",
+        layers = "0",
+        options = WMSTileOptions(format = "image/png", transparent = TRUE)) %>%
+    addCircleMarkers(
+        lng = ~ longitude,
+        lat = ~ latitude,
+        popup = ~ restore_loc,
+        radius = 5,
+        # set fill properties
+        fillColor = "salmon",
+        fillOpacity = 1,
+        # set stroke properties
+        stroke = T,
+        weight = 0.5,
+        color = "white",
+        opacity = 1)
+```
 
 
